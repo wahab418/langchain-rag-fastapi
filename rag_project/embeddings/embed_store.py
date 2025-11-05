@@ -1,6 +1,7 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
+
 CHROMA_PATH = r"rag_project\data\processed"
 
 def create_and_save_vectorstore(split_docs):

@@ -3,6 +3,7 @@ from langchain_community.document_loaders import PyMuPDFLoader
 
 def load_pdfs_from_folder(folder_path: str):
     
+    
     all_docs = []
     
     for file_name in os.listdir(folder_path):

@@ -1,5 +1,6 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+
 def split_documents(docs):
     """Split documents into smaller chunks for embeddings or RAG."""
     splitter = RecursiveCharacterTextSplitter(

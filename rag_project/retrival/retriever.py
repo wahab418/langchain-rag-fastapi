@@ -1,5 +1,6 @@
 from rag_project.embeddings.embed_store import load_vectorstore
 
+
 def get_retriever():
     print('loading retriever from chroma vectorstore')
     
