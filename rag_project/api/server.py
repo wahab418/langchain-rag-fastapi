@@ -2,18 +2,20 @@
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from rag_project.retrival.retriever import get_retriever
-from rag_project.llm.llm_model import load_llm
+#from rag_project.retrival.retriever import get_retriever
+#from rag_project.llm.llm_model import load_llm
 
 app = FastAPI(title="LangChain RAG API", version="1.0")
 
-retriever = get_retriever()
-llm = load_llm()
+#retriever = get_retriever()
+#llm = load_llm()
 
 class QueryRequest(BaseModel):
     query: str
 
 # Health endpoint
+
+
 @app.get("/health")
 async def health_check():
     return {"status": "API is running", "version": "1.0"}
@@ -40,7 +42,6 @@ async def query_rag(request: QueryRequest):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 
 

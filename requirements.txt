@@ -6,4 +6,11 @@ chromadb
 pypdf
 tiktoken
 python-dotenv
+pydantic
+dotenv
+psycopg2
+bcrypt
+fastapi
+jwt
+pydantic[email] #'pydantic[email]'
 
