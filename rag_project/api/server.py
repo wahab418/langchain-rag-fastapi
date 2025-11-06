@@ -2,8 +2,8 @@
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-#from rag_project.retrival.retriever import get_retriever
-#from rag_project.llm.llm_model import load_llm
+from rag_project.retrival.retriever import get_retriever
+from rag_project.llm.llm_model import load_llm
 
 app = FastAPI(title="LangChain RAG API", version="1.0")
 
