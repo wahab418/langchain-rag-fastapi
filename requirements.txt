@@ -1,6 +1,6 @@
 langchain
 langchain-core
-langchian-huggingface
+langchain-huggingface
 langchain-community
 langchain-groq
 chromadb
