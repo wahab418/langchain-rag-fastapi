@@ -16,3 +16,4 @@ def load_pdfs_from_folder(folder_path: str):
             
     print(" All PDFs loaded successfully......")
     return all_docs
+print("loaded......")
