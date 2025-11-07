@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from rag_project.api.db.database import Base, engine
 from rag_project.api.routes import query_routes
-
+import uvicorn
 
 Base.metadata.create_all(bind=engine)
 print(" Database connected and tables created!")
@@ -17,5 +17,9 @@ async def test_router():
 
 app.include_router(query_routes.router, prefix="/query", tags=["Query"])
 
+if __name__=="__main__":
+    uvicorn.run(
+        app=app
+    )
 
 
