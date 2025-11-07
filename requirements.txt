@@ -1,10 +1,11 @@
 langchain
 langchain-core
+sentence_transformers
+langchain-huggingface
 langchain-community
 langchain-groq
 chromadb
 pypdf
-tiktoken
 python-dotenv
 pydantic
 dotenv
@@ -13,4 +14,7 @@ bcrypt
 fastapi
 jwt
 pydantic[email] #'pydantic[email]'
+
+
+
 
