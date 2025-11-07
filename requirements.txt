@@ -7,7 +7,5 @@ langchain-groq
 chromadb
 pypdf
 python-dotenv
-
-
-
-
+fastapi
+uvicornpip 
