@@ -7,6 +7,16 @@ from rag_project.llm.llm_model import load_llm
 from rag_project.api.schema.schema import QueryLog  # your model file
 from rag_project.api.db.dbs import get_db
 from rag_project.api.db.database import Base, engine
+# from fastapi import APIRouter
+# from rag_project.api.router import query_routes
+
+# app = FastAPI(title= "langchain RAG PAI", version= "1.0")
+
+# app.include_router(query_routes.router, prefix="/query", tags=["Query"])
+
+# @app.get("/health")
+# async def health_check():
+#     return {"status": "ok"}
 
 Base.metadata.create_all(bind=engine)
 print(" Database connected and tables created!")
@@ -19,8 +29,7 @@ llm = load_llm()
 #  Request body model
 class QueryRequest(BaseModel):
     query: str
-    user_id: str | None = None
-
+    
 @app.post("/query")
 async def query_model(request: QueryRequest, db: Session = Depends(get_db)):
     try:
