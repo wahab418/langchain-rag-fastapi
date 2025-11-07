@@ -2,7 +2,7 @@ name: Build & Push Docker Image
 
 on:
   push:
-    branches: [ jalal-docker-setup ]
+    branches: [ main ]
 
 jobs:
   # 1️⃣ Install dependencies
