@@ -8,4 +8,4 @@ chromadb
 pypdf
 python-dotenv
 fastapi
-uvicornpip 
+uvicorn
