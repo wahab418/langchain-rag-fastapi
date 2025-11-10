@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from pydantic import EmailStr
-
+from fastapi.security import OAuth2PasswordBearer
+othobear = OAuth2PasswordBearer(tokenUrl="/login")
 class RegisterScheme(BaseModel):
     firstname : str ="First Name"
     lastname: str ="Last Name"

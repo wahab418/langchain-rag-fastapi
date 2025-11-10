@@ -85,3 +85,12 @@ rag_project/
 
 
     ## Testing the API
+
+
+uvicorn rag_project.api.server:app
+
+{
+  "message": "Successfull login.",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaS5raGFuQGdtYWlsLmNvbSIsImV4cCI6MTc2Mjc1ODU2M30.CGPj68xr_P-H6xxmPErXCV5IGJ8MfPHTt2-gxMqkRQI",
+  "token_type": "Bearer"
+}
