@@ -91,6 +91,18 @@ uvicorn rag_project.api.server:app
 
 {
   "message": "Successfull login.",
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaS5raGFuQGdtYWlsLmNvbSIsImV4cCI6MTc2Mjc1ODU2M30.CGPj68xr_P-H6xxmPErXCV5IGJ8MfPHTt2-gxMqkRQI",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJleHAiOjE3NjI4NDA1MDF9.H4p9jtEcBdIeJz-MduCn47QHVUJr2OSh5L8FWoszSqM",
   "token_type": "Bearer"
+}
+
+{
+  "firstname": "ali",
+  "lastname": "khan",
+  "email": "ali@gmail.com",
+  "password": "123",
+  "confirm_password": "123"
+}
+{
+  "email": "ali@gmail.com",
+  "password": "123"
 }

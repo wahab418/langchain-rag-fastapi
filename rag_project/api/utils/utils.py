@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from fastapi import HTTPException
 import os
+import bcrypt
 load_dotenv()
 ALGORITHM = os.getenv("ALGORITHM")
 
@@ -25,5 +26,10 @@ def decode_jwt_token(data):
 
     return decode_jwt
 
+
+def verify_password(user_pass, hash_pass):
+    data = bcrypt.checkpw(user_pass.encode("utf-8"),hash_pass.encode("utf-8"))
+    return data
+    
 
 

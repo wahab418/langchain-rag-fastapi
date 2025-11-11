@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime
-
 from rag_project.retrival.retriever import get_retriever
 from rag_project.llm.llm_model import load_llm
-from rag_project.api.schema.schema import QueryLog  # your model file
+from rag_project.api.schema.schema import QueryLog, Users  # your model file
 from rag_project.api.db.dbs import get_db
-from rag_project.api.state import othobear
-from rag_project.api.create_token import decode_jwt_token
+#from rag_project.api.state.state import othobear
+from rag_project.api.utils.utils import decode_jwt_token
+from sqlalchemy import select
 import psycopg2
 import os
 from dotenv import load_dotenv
@@ -34,12 +34,20 @@ async def query_model(request: QueryRequest, db: Session = Depends(get_db)):
             raise HTTPException(status_code=400, message="Session Expire. Please Login!")
         
         user_email = decode_token.get("email")
+        data = select(Users).where(Users.email==user_email)
+        user_data = db.execute(data)
+        user_data = user_data.scalar_one_or_none()
+        
+        email=user_data.email
+        user_id=user_data.user_uuid
+        '''
         conn = psycopg2.connect(DATABASE_URL)
         corr = conn.cursor()
         corr.execute(f"select email, user_uuid from users where email='{user_email}'")
         record = corr.fetchall()
         email, user_id = record[0]
-        #sqlalchemy
+        '''
+      
         if email:
             retrieved_docs = retriever.invoke(request.query)
             

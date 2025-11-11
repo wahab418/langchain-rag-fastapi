@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from pydantic import EmailStr
+import uuid
 from fastapi.security import OAuth2PasswordBearer
 othobear = OAuth2PasswordBearer(tokenUrl="/login")
 class RegisterScheme(BaseModel):
@@ -18,3 +19,9 @@ class LogoutScheme(BaseModel):
 
 class VerifyEmailScheme(BaseModel):
     token: str
+
+class VerifyPasswordScheme(BaseModel):
+    email: EmailStr
+    password: str
+
+ 
