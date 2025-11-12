@@ -1,7 +1,7 @@
 from rag_project.api.db.dbs import get_db
 from rag_project.api.schema.schema import Users
 from rag_project.api.utils.utils import verify_password
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, BackgroundTasks
 from fastapi import HTTPException
 from sqlalchemy import select, Update
 from rag_project.api.state.state import VerifyPasswordScheme

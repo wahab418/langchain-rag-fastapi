@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from rag_project.retrival.retriever import get_retriever
 from rag_project.llm.llm_model import load_llm
-from rag_project.api.schema.schema import QueryLog, Users  # your model file
+from rag_project.api.schema.schema import QueryLog, Users 
 from rag_project.api.db.dbs import get_db
 from rag_project.api.state.state import othobear, RegisterScheme, LoginScheme, VerifyEmailScheme, LogoutScheme
 from rag_project.api.utils.utils import decode_jwt_token
@@ -54,17 +54,21 @@ async def login(user_request: LoginScheme, db:Session=Depends(get_db)):
     # record = corr.fetchone()
     # if not record:
     #     raise HTTPException(status_code=400, detail="Please Register yourself before login")
-    hastpass= bcrypt.hashpw(user_request.password.encode("utf-8"),bcrypt.gensalt()).decode("utf-8")
+    #hastpass= bcrypt.hashpw(user_request.password.encode("utf-8"),bcrypt.gensalt()).decode("utf-8")
 
     original_password =  existing_record.password
 
     # corr.execute(f"select password from users where email='{user_request.email}'")
     # original_password = corr.fetchone()
-    response = bcrypt.checkpw(user_request.password.encode("utf-8"), original_password.encode("utf-8"))
+    # response = bcrypt.checkpw(user_request.password.encode("utf-8"), original_password.encode("utf-8"))
+    response = bcrypt.checkpw(
+        user_request.password.encode("utf-8"),
+        original_password.encode("utf-8")
+    )
     if not response:
         raise HTTPException(status_code=400, detail="password must match!")
     
-    token = create_jwt_token({"email":user_request.email})
+    token = create_jwt_token({"email":user_request.email,"name":existing_record.firstname,"user_uuid":str(existing_record.user_uuid)})
     return {"message": "Successfull login.","access_token":token,"token_type":"Bearer"}
 
 @router.post("/verify_email")
@@ -112,15 +116,17 @@ async def resend_email_verification(data: VerifyEmailScheme, db:Session = Depend
 
 @router.delete("/logout")
 async def logout(data: LogoutScheme, db: Session = Depends(get_db)):
+    decode_token = decode_jwt_token(data.token)
+    user_email = decode_token.get("email")
 
-    email_db = db.execute(select(Users).where(Users.email == data.email)).scalar_one_or_none()
+    email_db = db.execute(select(Users).where(Users.email == user_email)).scalar_one_or_none()
 
 
     if not email_db:
         raise HTTPException(status_code=400,detail="User not exist.")
         
 
-    result = db.execute(delete(Users).where(data.email == Users.email))
+    result = db.execute(delete(Users).where(Users.email == user_email))
     db.commit()
     if result.rowcount > 0:
         return {"message":"Successfully Deleted!"}

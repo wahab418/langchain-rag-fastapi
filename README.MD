@@ -91,7 +91,7 @@ uvicorn rag_project.api.server:app
 
 {
   "message": "Successfull login.",
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJleHAiOjE3NjI4NDA1MDF9.H4p9jtEcBdIeJz-MduCn47QHVUJr2OSh5L8FWoszSqM",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbGlAZ21haWwuY29tIiwibmFtZSI6ImFsaSIsInVzZXJfdXVpZCI6IjNhNTljOThkLTNiN2YtNGFmMi1hM2Q3LWNiZjZiZmM2ODZlNiIsImV4cCI6MTc2MjkyODMyOH0.ygtjHCXijgu07TU8Qj1_M9ji7NYV3F2gozx9_Qi0224",
   "token_type": "Bearer"
 }
 
@@ -106,3 +106,14 @@ uvicorn rag_project.api.server:app
   "email": "ali@gmail.com",
   "password": "123"
 }
+
+
+
+create a workspace for each user
+each workspace has id,name, url
+crud
+use the url and scrape data using crawl4ai and build a vectoe store.
+
+crud
+scrape url content
+vector db

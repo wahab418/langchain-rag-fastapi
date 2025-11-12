@@ -24,3 +24,14 @@ class Users(Base):
     password = Column(VARCHAR, nullable=False)
 
     user_history = relationship("QueryLog", back_populates="user_relation",cascade="all, delete-orphan",  passive_deletes=True)
+    workspace_relation = relationship("Workspace",back_populates="workspace_relation",cascade="all, delete-orphan", passive_deletes=True)
+
+class Workspace(Base):
+    __tablename__ = "workspace"
+
+    workspace_id = Column(PG_UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4())
+    name = Column(VARCHAR, nullable=False, unique=True)
+    url = Column(VARCHAR, nullable=False)
+    user_uuid = Column(PG_UUID(as_uuid=True), ForeignKey("users.user_uuid", ondelete="CASCADE"),nullable=False)
+
+    workspace_relation = relationship("Users",back_populates="workspace_relation")
