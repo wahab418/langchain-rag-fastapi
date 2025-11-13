@@ -90,9 +90,9 @@ rag_project/
 uvicorn rag_project.api.server:app --reload
 
 {
-  "message": "Successfull login.",
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMDEwMDQ2fQ.HICNS0DGpvwxJ73taW0Y8xax8v1-n49tKjUhFF7Kvs0",
-  "token_type": "Bearer"
+    "message": "Successfull login.",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMDE3MTcwfQ.0YxQPwPofDVL1OLtZLFwPQy-NVZGG9AUOc90KwwFf3E",
+    "token_type": "Bearer"
 }
 
 

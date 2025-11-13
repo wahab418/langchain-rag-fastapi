@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from fastapi import HTTPException
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from fastapi import Header, status
 import os
 import bcrypt
 load_dotenv()
@@ -38,3 +39,21 @@ def text_splitter(document):
     splited_docs = text_splitter.split_documents(document)
     return splited_docs
 
+
+
+
+def get_current_user(Authorization: str = Header(...)):
+    """
+    Extracts and verifies JWT token from the Authorization header.
+    Example header: Authorization: Bearer <your_token>
+    """
+    try:
+        # Handle 'Bearer <token>' or just '<token>'
+        token = Authorization.split(" ")[1] if " " in Authorization else Authorization
+        decoded = decode_jwt_token(token)
+        return decoded  # e.g. {"email": ..., "name": ..., "user_uuid": ...}
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token"
+        )

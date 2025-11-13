@@ -6,9 +6,8 @@ from rag_project.retrival.retriever import get_retriever
 from rag_project.llm.llm_model import load_llm
 from rag_project.api.schema.schema import QueryLog, Users 
 from rag_project.api.db.dbs import get_db
-from rag_project.api.state.state import othobear, RegisterScheme, LoginScheme, VerifyEmailScheme, LogoutScheme
-from rag_project.api.utils.utils import decode_jwt_token
-from rag_project.api.utils.utils import create_jwt_token
+from rag_project.api.state.state import othobear, RegisterScheme, LoginScheme
+from rag_project.api.utils.utils import decode_jwt_token, get_current_user, create_jwt_token
 from sqlalchemy import select, delete
 import psycopg2
 import os
@@ -46,21 +45,9 @@ async def login(user_request: LoginScheme, db:Session=Depends(get_db)):
     existing_record =  db.execute(select(Users).where(Users.email == user_request.email)).scalar_one_or_none()
     if not existing_record:
         raise HTTPException(status_code=400, detail="Please Register Yourself before Login")
-    
-
-    # conn = psycopg2.connect(DATABASE_URL)
-    # corr = conn.cursor()
-    # corr.execute(f"select * from users where email='{user_request.email}'")
-    # record = corr.fetchone()
-    # if not record:
-    #     raise HTTPException(status_code=400, detail="Please Register yourself before login")
-    #hastpass= bcrypt.hashpw(user_request.password.encode("utf-8"),bcrypt.gensalt()).decode("utf-8")
 
     original_password =  existing_record.password
 
-    # corr.execute(f"select password from users where email='{user_request.email}'")
-    # original_password = corr.fetchone()
-    # response = bcrypt.checkpw(user_request.password.encode("utf-8"), original_password.encode("utf-8"))
     response = bcrypt.checkpw(
         user_request.password.encode("utf-8"),
         original_password.encode("utf-8")
@@ -72,9 +59,8 @@ async def login(user_request: LoginScheme, db:Session=Depends(get_db)):
     return {"message": "Successfull login.","access_token":token,"token_type":"Bearer"}
 
 @router.post("/verify_email")
-async def email_verification(data: VerifyEmailScheme, db:Session = Depends(get_db)):
-    decode_token = decode_jwt_token(data.token)
-    email_token = decode_token.get("email")
+async def email_verification(data=Depends(get_current_user), db:Session = Depends(get_db)):
+    email_token = data.get("email")
 
     if not email_token:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -94,9 +80,8 @@ async def email_verification(data: VerifyEmailScheme, db:Session = Depends(get_d
 
 
 @router.post("/resend_verification")
-async def resend_email_verification(data: VerifyEmailScheme, db:Session = Depends(get_db)):
-    decode_token = decode_jwt_token(data.token)
-    email_token = decode_token.get("email")
+async def resend_email_verification(data=Depends(get_current_user), db:Session = Depends(get_db)):
+    email_token = data.get("email")
 
     if not email_token:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -115,9 +100,8 @@ async def resend_email_verification(data: VerifyEmailScheme, db:Session = Depend
 
 
 @router.delete("/logout")
-async def logout(data: LogoutScheme, db: Session = Depends(get_db)):
-    decode_token = decode_jwt_token(data.token)
-    user_email = decode_token.get("email")
+async def logout(data = Depends(get_current_user), db: Session = Depends(get_db)):
+    user_email = data.get("email")
 
     email_db = db.execute(select(Users).where(Users.email == user_email)).scalar_one_or_none()
 

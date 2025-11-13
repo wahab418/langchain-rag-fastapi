@@ -30,7 +30,7 @@ class Workspace(Base):
     __tablename__ = "workspace"
 
     workspace_id = Column(PG_UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4())
-    name = Column(VARCHAR, nullable=False, unique=True)
+    name = Column(VARCHAR, nullable=False)
     url = Column(VARCHAR, nullable=False)
     user_uuid = Column(PG_UUID(as_uuid=True), ForeignKey("users.user_uuid", ondelete="CASCADE"),nullable=False)
 
