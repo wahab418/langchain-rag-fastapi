@@ -87,13 +87,16 @@ rag_project/
     ## Testing the API
 
 
-uvicorn rag_project.api.server:app
+uvicorn rag_project.api.server:app --reload
 
 {
   "message": "Successfull login.",
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbGlAZ21haWwuY29tIiwibmFtZSI6ImFsaSIsInVzZXJfdXVpZCI6IjNhNTljOThkLTNiN2YtNGFmMi1hM2Q3LWNiZjZiZmM2ODZlNiIsImV4cCI6MTc2MjkyODMyOH0.ygtjHCXijgu07TU8Qj1_M9ji7NYV3F2gozx9_Qi0224",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMDEwMDQ2fQ.HICNS0DGpvwxJ73taW0Y8xax8v1-n49tKjUhFF7Kvs0",
   "token_type": "Bearer"
 }
+
+
+https://revnix.com/
 
 {
   "firstname": "ali",
@@ -107,6 +110,8 @@ uvicorn rag_project.api.server:app
   "password": "123"
 }
 
+
+rag_project.api.scrape.scrape.py
 
 
 create a workspace for each user

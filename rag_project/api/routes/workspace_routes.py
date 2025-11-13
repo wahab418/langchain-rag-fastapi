@@ -6,10 +6,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select, Insert, Delete, Update
 from sqlalchemy.orm import Session
 from datetime import datetime
-
+from rag_project.api.db.vector_db import store_vector_db, delete_vector_db
+from rag_project.api.scrape.scrape import web_scraper
 router = APIRouter()
 
-@router.post("/create")
+@router.post("/create_workspace")
 async def create_workspace(data: UserWorkspace, db: Session=Depends(get_db)):
     decode_token = decode_jwt_token(data.token)
     user_id = decode_token.get("user_uuid")
@@ -19,12 +20,20 @@ async def create_workspace(data: UserWorkspace, db: Session=Depends(get_db)):
 
     result = db.execute(select(Workspace).where(Workspace.name == data.name)).scalar_one_or_none()
 
-    if not result:
-        db.execute(Insert(Workspace).values(name=data.name,url=str(data.url),user_uuid=user_id))
-        db.commit()
-        return {"message":"Workspace Created Succesfully!"}
-    else:
-        return {"message":"Workspace already exists!"}
+    if result:
+        return {"message": "Workspace already exists!"}
+
+    # Step 1: Create new workspace
+    new_workspace = Workspace(name=data.name, url=str(data.url), user_uuid=user_id)
+    db.add(new_workspace)
+    db.commit()
+    db.refresh(new_workspace)  # ensures we have new_workspace.workspace_id
+
+    # Step 2: Scrape and store data
+    docs = web_scraper(str(data.url))
+    store_vector_db(docs, new_workspace.workspace_id)
+
+    return {"message": "Workspace Created Successfully!"}
 
 @router.post("/read_workspace")
 async def read_workspace(data: DeleteWorkspace, db: Session=Depends(get_db)):
@@ -62,8 +71,11 @@ async def delete_workspace(data: DeleteWorkspace, db: Session=Depends(get_db)):
     result = db.execute(select(Workspace).where(Workspace.name == data.name)).scalar_one_or_none()
 
     if result:
-        db.execute(Delete(Workspace).where(Workspace.name==data.name))
+        workspace_id = result.workspace_id
+        db.delete(result)
         db.commit()
+
+        delete_vector_db(workspace_id)
         return {"message":"Workspace Deleted Succesfully!"}
     else:
         return {"message":"Workspace Not exists!"}

@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from fastapi import HTTPException
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 import bcrypt
 load_dotenv()
@@ -32,4 +33,8 @@ def verify_password(user_pass, hash_pass):
     return data
     
 
+def text_splitter(document):
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
+    splited_docs = text_splitter.split_documents(document)
+    return splited_docs
 
