@@ -1,7 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic import EmailStr, AnyUrl
+from typing import Optional, List
 import uuid
 from uuid import UUID
+
 from fastapi.security import OAuth2PasswordBearer
 othobear = OAuth2PasswordBearer(tokenUrl="/login")
 class RegisterScheme(BaseModel):
@@ -18,7 +20,6 @@ class LoginScheme(BaseModel):
 class VerifyPasswordScheme(BaseModel):
     email: EmailStr
     password: str
-
  
 class UserWorkspace(BaseModel):
     name : str 
@@ -31,3 +32,14 @@ class UpdateWorkspace(BaseModel):
     workspace_id: UUID
     url: AnyUrl
   
+class TopicGenerationInput(BaseModel):
+    industry: str
+    industry_other: Optional[str] = None
+
+    audience: List[str]
+
+    purpose: List[str]
+    purpose_other: Optional[str] = None
+    num_topics: int = Field(lt=5,gt=0)
+    subject: Optional[str] = None
+    timestamp: str

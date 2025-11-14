@@ -38,7 +38,7 @@ async def forget_password(data: VerifyPasswordScheme, db: Session= Depends(get_d
         return {"message":"Not Updated!"}
 
         
-@router.post("/change_password")
+@router.put("/change_password")
 async def change_password(data: VerifyPasswordScheme, db: Session= Depends(get_db)):
     user_email = data.email
     db_data = db.execute(select(Users).where(Users.email==user_email)).scalar_one_or_none()
