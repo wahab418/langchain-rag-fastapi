@@ -25,8 +25,9 @@ async def generate_topic(data:TopicGenerationInput, db:Session = Depends(get_db)
     
     llm = load_llm()
     structured_llm = llm.with_structured_output(BasicTopicGenerationList)
+    formated_prompt = prompt.format(**data.model_dump())
     chain = prompt | structured_llm
-    response:BasicTopicGenerationList = chain.invoke({"data":data.dict()})
+    response:BasicTopicGenerationList = chain.invoke(data.model_dump())
     for topic in response.topics: 
         topic_add = TopicGeneration(
             workspace_id = workspace_db.workspace_id,

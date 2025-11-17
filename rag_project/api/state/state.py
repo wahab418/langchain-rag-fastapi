@@ -40,6 +40,6 @@ class TopicGenerationInput(BaseModel):
 
     purpose: List[str]
     purpose_other: Optional[str] = None
-    num_topics: int = Field(lt=5,gt=0)
+    num_topics: int = Field(lt=11,gt=0)
     subject: Optional[str] = None
     timestamp: str

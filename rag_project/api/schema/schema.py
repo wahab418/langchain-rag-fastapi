@@ -29,7 +29,7 @@ class Users(Base):
 
     user_history = relationship("QueryLog", back_populates="user_relation",cascade="all, delete-orphan",  passive_deletes=True)
     workspace_relation = relationship("Workspace",back_populates="workspace_relation",cascade="all, delete-orphan", passive_deletes=True)
-    # user_topic_relation = relationship("TopicGeneration",back_populates="topic_user_relation",cascade="all, delete-orphan",passive_deletes=True)
+    user_topic_relation = relationship("TopicGeneration",back_populates="topic_user_relation",cascade="all, delete-orphan",passive_deletes=True)
     
 
 class Workspace(Base):
@@ -41,7 +41,7 @@ class Workspace(Base):
     user_uuid = Column(PG_UUID(as_uuid=True), ForeignKey("users.user_uuid", ondelete="CASCADE"),nullable=False)
 
     workspace_relation = relationship("Users",back_populates="workspace_relation")
-    # workspace_topic_relation = relationship("TopicGeneration",back_populates="topic_workspace_relation", cascade="all, delete-orphan",passive_deletes=True)
+    workspace_topic_relation = relationship("TopicGeneration",back_populates="topic_workspace_relation", cascade="all, delete-orphan",passive_deletes=True)
 
 
 class TopicGeneration(Base):
@@ -75,5 +75,5 @@ class TopicGeneration(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)  # Generated date
     updated_at = Column(DateTime(timezone=True), server_default=func.now(),nullable=True)
 
-    # topic_user_relation = relationship("Users", back_populates="user_topic_relation")
-    # topic_workspace_relation = relationship("Workspace",back_populates="workspace_topic_relation")
+    topic_user_relation = relationship("Users", back_populates="user_topic_relation")
+    topic_workspace_relation = relationship("Workspace",back_populates="workspace_topic_relation")

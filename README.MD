@@ -91,7 +91,7 @@ uvicorn rag_project.api.server:app --reload
 
 {
     "message": "Successfull login.",
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMTE4OTA5fQ.2tre7TcLQ7xAuSBQPJYyp5K7VTx68qoiyTFPVjnpts8",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMzU2Njg4fQ.3gMFrfyLDqf0wzLGrFa_Cb_Hh9iPBcXJcKiTZG5ddfU",
     "token_type": "Bearer"
 }
 
@@ -135,6 +135,7 @@ vector db
 create topic generation routes.
 get pyload from forntend
 based on the user topic, generate topic and store it inside topic generation routes.
+
 
 http://127.0.0.1:8000/topic_generation/generate_topic
 
