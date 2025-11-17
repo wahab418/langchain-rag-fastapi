@@ -86,63 +86,6 @@ rag_project/
 
     ## Testing the API
 
+How to run:
 
 uvicorn rag_project.api.server:app --reload
-
-{
-    "message": "Successfull login.",
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJuYW1lIjoiYWxpIiwidXNlcl91dWlkIjoiNjkzODNkY2YtODkxNS00ZTE1LTliMDQtNGEyZDhkYTAxNjhlIiwiZXhwIjoxNzYzMzU2Njg4fQ.3gMFrfyLDqf0wzLGrFa_Cb_Hh9iPBcXJcKiTZG5ddfU",
-    "token_type": "Bearer"
-}
-
-{
-    "message": "Workspace Created Successfully!",
-    "workspace_id": "4d0a2cf5-94a1-4bf8-81b7-5fb9a85ae482",
-    "name": "revnix",
-    "url": "https://revnix.com/",
-    "user_uuid": "69383dcf-8915-4e15-9b04-4a2d8da0168e"
-}
-
-
-https://revnix.com/
-
-{
-  "firstname": "ali",
-  "lastname": "khan",
-  "email": "ali@gmail.com",
-  "password": "123",
-  "confirm_password": "123"
-}
-{
-  "email": "ali@gmail.com",
-  "password": "123"
-}
-
-
-rag_project.api.scrape.scrape.py
-
-
-create a workspace for each user
-each workspace has id,name, url
-crud
-use the url and scrape data using crawl4ai and build a vectoe store.
-
-crud
-scrape url content
-vector db
-
-
-create topic generation routes.
-get pyload from forntend
-based on the user topic, generate topic and store it inside topic generation routes.
-
-
-http://127.0.0.1:8000/topic_generation/generate_topic
-
-{
-  "industry": "AI",
-  "audience": ["Developers"],
-  "purpose": ["Research"],
-  "num_topics": 2,
-  "timestamp": "2025-11-14T11:00:00Z"
-}
